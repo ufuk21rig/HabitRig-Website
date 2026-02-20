@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HabitRig</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(to bottom, #3f18b6, #C75DD1);
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 640px;
+      width: 100%;
+      padding: 60px 32px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* LOGO */
+    .logo {
+      font-size: 52px;
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: -1px;
+      color: white;
+      line-height: 1;
+    }
+
+    .logo .rig {
+      color: #FF9F1C;
+    }
+
+    /* SLOGAN */
+    .tagline {
+      color: #FF9F1C;
+      margin-top: 12px;
+      letter-spacing: 3px;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 40px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 2px;
+      margin: 40px auto;
+    }
+
+    /* AÇIKLAMA */
+    .description {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.6;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+
+    /* BADGES */
+    .badges {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 0;
+    }
+
+    .badge {
+      background: white;
+      color: #3f18b6;
+      padding: 14px 32px;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+      cursor: default;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .badge:hover {
+      background: #FF9F1C;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER LINKS */
+    .footer {
+      margin-top: 56px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-line {
+      width: 1px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .links {
+      display: flex;
+      gap: 28px;
+      justify-content: center;
+      font-size: 0.85rem;
+    }
+
+    .links a {
+      color: white;
+      text-decoration: none;
+      opacity: 0.65;
+      transition: opacity 0.2s ease;
+    }
+
+    .links a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 40px;
+      }
+
+      .container {
+        padding: 48px 24px;
+      }
+
+      .badge {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+      }
+
+      .divider {
+        margin: 32px auto;
+      }
+
+      .footer {
+        margin-top: 44px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Logo -->
+    <div class="logo">Habit<span class="rig">Rig</span></div>
+
+    <!-- Slogan -->
+    <div class="tagline">LEVEL UP YOUR LIFE</div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Açıklama -->
+    <div class="description">Available soon on</div>
+
+    <!-- Store Butonları -->
+    <div class="badges">
+      <span class="badge">App Store</span>
+      <span class="badge">Google Play</span>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-line"></div>
+      <div class="links">
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/support.html">Support</a>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
