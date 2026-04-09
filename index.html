@@ -1,203 +1,415 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HabitRig</title>
-  <link rel="icon" type="image/png" href="/favicon.png">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HabitRig — Level Up Your Life</title>
+<meta name="description" content="Build real habits with friends — or solo. Streaks, duels, squads & 60+ badges. Free on iOS & Android.">
+<meta name="theme-color" content="#3f18b6">
+<link rel="icon" type="image/png" href="./favicon.png">
+<link rel="apple-touch-icon" href="./images/icon.png">
+<meta property="og:title" content="HabitRig — Level Up Your Life">
+<meta property="og:description" content="Build real habits with friends — or solo. Streaks, duels, squads & 60+ badges.">
+<meta property="og:image" content="https://www.habitrig.app/images/icon.png">
+<meta property="og:url" content="https://www.habitrig.app">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--p1:#3f18b6;--p2:#7B2FD4;--p3:#C75DD1;--orange:#FF9F1C;--w:#fff;--w90:rgba(255,255,255,.9);--w70:rgba(255,255,255,.7);--w50:rgba(255,255,255,.5);--w30:rgba(255,255,255,.3);--w15:rgba(255,255,255,.15);--w10:rgba(255,255,255,.1);--w06:rgba(255,255,255,.06);--w03:rgba(255,255,255,.03)}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--p1);color:var(--w);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.grad{background:linear-gradient(to bottom,var(--p1) 0%,var(--p2) 40%,var(--p3) 100%);min-height:100vh}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+.sec{padding:100px 0}
+.sec-dark{background:rgba(0,0,0,.18);border-top:1px solid var(--w06);border-bottom:1px solid var(--w06)}
+@media(max-width:768px){.sec{padding:64px 0}}
+@keyframes rise{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideL{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideR{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.an{opacity:0}
+.an.vis-rise{animation:rise .8s cubic-bezier(.22,1,.36,1) forwards}
+.an.vis-left{animation:slideL .8s cubic-bezier(.22,1,.36,1) forwards}
+.an.vis-right{animation:slideR .8s cubic-bezier(.22,1,.36,1) forwards}
+.an.vis-scale{animation:scaleIn .8s cubic-bezier(.22,1,.36,1) forwards}
+.d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}.d4{animation-delay:.4s}
 
-    html, body {
-      height: 100%;
-    }
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;transition:all .35s ease}
+.nav-bar{max-width:1080px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;border-radius:0 0 14px 14px;transition:all .35s ease}
+nav.scrolled .nav-bar{backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);box-shadow:0 4px 20px rgba(0,0,0,.08),inset 0 .5px 0 var(--w15)}
+.nav-brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--w)}
+.nav-brand img{width:28px;height:28px;border-radius:6px}
+.nav-brand span{font-size:18px;font-weight:900;font-style:italic;letter-spacing:-.4px}
+.nav-brand .rig{color:var(--orange)}
+.nav-menu{display:flex;gap:24px;align-items:center}
+.nav-menu a{color:var(--w70);text-decoration:none;font-size:13px;font-weight:600;transition:color .2s}
+.nav-menu a:hover{color:var(--w)}
+.nav-cta{background:var(--w)!important;color:var(--p1)!important;padding:8px 18px;border-radius:10px;font-weight:700!important;transition:all .2s!important}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.15)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;z-index:201}
+.hamburger span{display:block;width:22px;height:2px;background:var(--w);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mob-menu{display:none;position:fixed;inset:0;background:rgba(40,10,120,.96);backdrop-filter:blur(24px);z-index:199;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mob-menu.open{display:flex}
+.mob-menu a{color:var(--w);text-decoration:none;font-size:22px;font-weight:700}
+@media(max-width:768px){.nav-menu{display:none}.hamburger{display:flex}}
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      min-height: 100vh;
-      background: linear-gradient(to bottom, #3f18b6, #C75DD1);
-      background-repeat: no-repeat;
-      background-size: cover;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;padding:110px 0 70px;position:relative;overflow:hidden}
+.hero-glow{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none;width:450px;height:450px;background:rgba(255,159,28,.08);top:-120px;right:5%}
+.hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative;z-index:2}
+.hero h1{font-size:clamp(34px,4.6vw,56px);font-weight:900;line-height:1.08;letter-spacing:-2px;margin-bottom:18px}
+.hero h1 em{font-style:italic;color:var(--orange)}
+.hero-desc{font-size:clamp(14px,1.4vw,16px);color:var(--w70);line-height:1.7;margin-bottom:32px;max-width:440px}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn-store{display:inline-flex;align-items:center;gap:8px;background:var(--w);color:var(--p1);padding:12px 22px;border-radius:12px;text-decoration:none;font-weight:700;font-size:14px;transition:all .25s;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.btn-store:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.btn-store svg{width:18px;height:18px}
+.btn-soon{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--w30);color:var(--w50);padding:12px 22px;border-radius:12px;font-weight:600;font-size:14px;cursor:default}
+.hero-phones{position:relative;display:flex;justify-content:center;align-items:center;min-height:480px}
+.phone{position:relative;display:inline-block;border-radius:28px;overflow:hidden;background:#000;box-shadow:0 24px 48px rgba(0,0,0,.22),0 0 0 1px rgba(255,255,255,.08);transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.phone:hover{transform:translateY(-6px) scale(1.02)}
+.phone img{display:block;width:100%;height:auto;border-radius:28px}
+.hero-phones .phone{position:absolute}
+.hero-phones .phone.center{width:230px;z-index:3;animation:float 7s ease-in-out infinite}
+.hero-phones .phone.side{width:190px;z-index:2;opacity:.7;animation:float 7s ease-in-out infinite}
+.hero-phones .phone.left{left:2%;top:36px;transform:rotate(-5deg);animation-delay:-1.5s}
+.hero-phones .phone.right{right:2%;top:28px;transform:rotate(5deg);animation-delay:-3.5s}
+.hero-phones .phone.side:hover{opacity:.9}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;text-align:center}.hero-desc{max-width:100%;margin:0 auto 32px}.btn-row{justify-content:center}.hero-phones{min-height:360px;margin-top:20px}.hero-phones .phone.center{width:185px}.hero-phones .phone.side{width:150px}.hero-phones .phone.left{left:8%}.hero-phones .phone.right{right:8%}}
 
-    .container {
-      max-width: 640px;
-      width: 100%;
-      padding: 60px 32px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
-    }
+/* Section helpers */
+.tag{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3.5px;color:var(--orange);margin-bottom:12px;display:block}
+.sec-title{font-size:clamp(26px,3.2vw,40px);font-weight:900;letter-spacing:-1.5px;line-height:1.08;margin-bottom:12px}
+.sec-desc{font-size:clamp(13px,1.3vw,15px);color:var(--w70);line-height:1.65;max-width:480px}
+.sec-head{text-align:center;margin-bottom:52px}
+.sec-head .sec-desc{margin:0 auto}
 
-    /* LOGO */
-    .logo {
-      font-size: 52px;
-      font-weight: 900;
-      font-style: italic;
-      letter-spacing: -1px;
-      color: white;
-      line-height: 1;
-    }
+/* Mode cards */
+.modes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.mode-card{background:var(--w10);border:1px solid var(--w15);border-radius:16px;padding:28px 22px;transition:all .35s cubic-bezier(.22,1,.36,1);position:relative;overflow:hidden}
+.mode-card:hover{background:var(--w15);transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,0,0,.12)}
+.mode-card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--w30),transparent);opacity:0;transition:opacity .3s}
+.mode-card:hover::after{opacity:1}
+.mode-card svg{width:40px;height:40px;margin-bottom:14px}
+.mode-card h3{font-size:17px;font-weight:800;margin-bottom:6px}
+.mode-card p{color:var(--w70);font-size:13px;line-height:1.55}
+@media(max-width:768px){.modes-grid{grid-template-columns:1fr;max-width:360px;margin:0 auto}}
 
-    .logo .rig {
-      color: #FF9F1C;
-    }
+/* Feature showcase */
+.showcase{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:100px}
+.showcase:last-child{margin-bottom:0}
+.showcase.flip{direction:rtl}.showcase.flip>*{direction:ltr}
+.showcase h2{font-size:clamp(23px,2.6vw,32px);font-weight:900;letter-spacing:-.7px;line-height:1.1;margin-bottom:10px}
+.showcase>div>p{color:var(--w70);font-size:14px;line-height:1.7;margin-bottom:16px}
+.check-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.check-list li{display:flex;gap:8px;font-size:13px;color:var(--w70);line-height:1.5;align-items:flex-start}
+.check-list li svg{width:16px;height:16px;flex-shrink:0;margin-top:2px;color:var(--orange)}
+.showcase-phone{display:flex;justify-content:center}
+.showcase-phone .phone{width:220px}
+@media(max-width:768px){.showcase,.showcase.flip{grid-template-columns:1fr;gap:28px;direction:ltr;text-align:center;margin-bottom:64px}.check-list{align-items:center}.showcase-phone .phone{width:190px}}
 
-    /* SLOGAN */
-    .tagline {
-      color: #FF9F1C;
-      margin-top: 12px;
-      letter-spacing: 3px;
-      font-weight: 600;
-      font-size: 12px;
-    }
+/* Checkmark SVG shorthand */
+.ck{viewBox:0 0 16 16}
 
-    /* DIVIDER */
-    .divider {
-      width: 40px;
-      height: 2px;
-      background: rgba(255, 255, 255, 0.25);
-      border-radius: 2px;
-      margin: 40px auto;
-    }
+/* Stats strip */
+.stats-strip{padding:52px 0}
+.stats-strip .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center}
+.stat-val{font-size:clamp(28px,3.2vw,40px);font-weight:900;letter-spacing:-1px}
+.stat-lbl{font-size:11px;color:var(--w50);font-weight:600;text-transform:uppercase;letter-spacing:2px;margin-top:3px}
+@media(max-width:768px){.stats-strip .wrap{grid-template-columns:repeat(3,1fr);gap:16px}}
 
-    /* AÇIKLAMA */
-    .description {
-      font-size: 1rem;
-      color: rgba(255, 255, 255, 0.75);
-      line-height: 1.6;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      margin-bottom: 20px;
-    }
+/* Badges */
+.badge-showcase{text-align:center}
+.level-path{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:36px}
+.level-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--w06);border:1px solid var(--w10);border-radius:20px;font-size:13px;font-weight:700}
+.lc-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.level-arrow{color:var(--w30);font-size:12px}
+.badge-phone-center{display:flex;justify-content:center}
+.badge-phone-center .phone{width:240px}
+@media(max-width:768px){.level-arrow{display:none}.level-path{gap:8px}.badge-phone-center .phone{width:200px}}
 
-    /* BADGES */
-    .badges {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 0;
-    }
+/* Reports */
+.report-pair{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:500px;margin:0 auto}
+.report-pair .phone{width:100%}
+@media(max-width:768px){.report-pair{grid-template-columns:1fr;max-width:230px}}
 
-    .badge {
-      background: white;
-      color: #3f18b6;
-      padding: 14px 32px;
-      border-radius: 14px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
-      cursor: default;
-      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-    }
+/* Smart features strip */
+.smart-strip{padding:48px 0}
+.smart-strip .wrap{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.smart-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--w70)}
+.smart-item svg{width:18px;height:18px;color:var(--orange);flex-shrink:0}
+@media(max-width:768px){.smart-strip .wrap{gap:20px}}
 
-    .badge:hover {
-      background: #FF9F1C;
-      color: white;
-      transform: translateY(-2px);
-    }
+/* Plan comparison */
+.plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:680px;margin:0 auto}
+.plan-card{border-radius:16px;padding:28px 24px;position:relative;display:flex;flex-direction:column}
+.free-card{background:var(--w06);border:1px solid var(--w10)}
+.pro-card{background:linear-gradient(145deg,rgba(255,159,28,.1),rgba(255,159,28,.03));border:1.5px solid rgba(255,159,28,.25)}
+.plan-badge{position:absolute;top:-10px;right:20px;background:var(--orange);color:var(--p1);font-size:10px;font-weight:800;padding:4px 12px;border-radius:6px;text-transform:uppercase;letter-spacing:1px}
+.plan-label{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--w50);margin-bottom:6px}
+.plan-pricing{font-size:15px;font-weight:800;color:var(--orange);margin-bottom:16px;letter-spacing:.3px}
+.plan-divider{height:1px;background:var(--w10);margin-bottom:16px}
+.plan-features{display:flex;flex-direction:column;gap:10px;flex:1}
+.plan-feat{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:500;line-height:1.4}
+.plan-feat svg{width:14px;height:14px;flex-shrink:0;color:var(--orange)}
+.free-feat{color:var(--w70)}
+.dot-free{width:6px;height:6px;border-radius:50%;background:var(--w30);flex-shrink:0}
+@media(max-width:768px){.plan-grid{grid-template-columns:1fr;max-width:340px}}
+.lang-note{font-size:11px;color:var(--w50)}
 
-    /* FOOTER LINKS */
-    .footer {
-      margin-top: 56px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-    }
+/* CTA */
+.cta-sec{text-align:center;padding:80px 0 64px}
+.cta-sec h2{font-size:clamp(28px,3.8vw,46px);font-weight:900;letter-spacing:-1.5px;margin-bottom:14px}
+.cta-sec h2 span{color:var(--orange)}
+.cta-desc{color:var(--w70);font-size:15px;margin-bottom:8px}
 
-    .footer-line {
-      width: 1px;
-      height: 24px;
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .links {
-      display: flex;
-      gap: 28px;
-      justify-content: center;
-      font-size: 0.85rem;
-    }
-
-    .links a {
-      color: white;
-      text-decoration: none;
-      opacity: 0.65;
-      transition: opacity 0.2s ease;
-    }
-
-    .links a:hover {
-      opacity: 1;
-      text-decoration: underline;
-    }
-
-    @media (max-width: 480px) {
-      .logo {
-        font-size: 40px;
-      }
-
-      .container {
-        padding: 48px 24px;
-      }
-
-      .badge {
-        padding: 12px 24px;
-        font-size: 0.9rem;
-      }
-
-      .divider {
-        margin: 32px auto;
-      }
-
-      .footer {
-        margin-top: 44px;
-      }
-    }
-  </style>
+/* Footer */
+footer{border-top:1px solid var(--w10);padding:24px 0}
+footer .wrap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.ft-brand{display:flex;align-items:center;gap:7px;text-decoration:none;color:var(--w);font-size:14px;font-weight:900;font-style:italic}
+.ft-brand img{width:20px;height:20px;border-radius:4px;flex-shrink:0}
+.ft-brand .rig{color:var(--orange)}
+.ft-links{display:flex;gap:16px}
+.ft-links a{color:var(--w50);text-decoration:none;font-size:12px;font-weight:500;transition:color .2s}
+.ft-links a:hover{color:var(--w)}
+.ft-copy{font-size:11px;color:var(--w30)}
+@media(max-width:768px){footer .wrap{flex-direction:column;text-align:center}}
+</style>
 </head>
 <body>
-  <div class="container">
+<div class="grad">
 
-    <!-- Logo -->
-    <div class="logo">Habit<span class="rig">Rig</span></div>
+<!-- NAV -->
+<nav id="nb"><div class="nav-bar">
+  <a href="#" class="nav-brand"><img src="./images/adaptive-icon.png" alt=""><span><span>Habit</span><span class="rig">Rig</span></span></a>
+  <div class="nav-menu"><a href="#modes">Modes</a><a href="#features">Features</a><a href="#badges">Badges</a><a href="#reports">Reports</a><a href="https://apps.apple.com/us/app/habitrig-habit-tracker/id6759192273" class="nav-cta">Download</a></div>
+  <div class="hamburger" id="ham" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</div></nav>
+<div class="mob-menu" id="mmenu"><a href="#modes" onclick="closeMenu()">Modes</a><a href="#features" onclick="closeMenu()">Features</a><a href="#badges" onclick="closeMenu()">Badges</a><a href="#reports" onclick="closeMenu()">Reports</a><a href="https://apps.apple.com/us/app/habitrig-habit-tracker/id6759192273" onclick="closeMenu()" style="color:var(--orange)">Download</a></div>
 
-    <!-- Slogan -->
-    <div class="tagline">LEVEL UP YOUR LIFE</div>
-
-    <!-- Divider -->
-    <div class="divider"></div>
-
-    <!-- Açıklama -->
-    <div class="description">Available soon on</div>
-
-    <!-- Store Butonları -->
-    <div class="badges">
-      <span class="badge">App Store</span>
-      <span class="badge">Google Play</span>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-      <div class="footer-line"></div>
-      <div class="links">
-        <a href="/privacy.html">Privacy Policy</a>
-        <a href="/terms.html">Terms of Service</a>
-        <a href="/support.html">Support</a>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="wrap">
+    <div>
+      <h1 class="an" data-anim="rise">Habit-building as a <em>game</em> you actually want to play</h1>
+      <p class="hero-desc an d1" data-anim="rise">Your habits deserve more than a checkbox. Track solo or team up for duels & squads — with streaks, gems, badges, and detailed reports to keep you going.</p>
+      <div class="btn-row an d2" data-anim="rise">
+        <a href="https://apps.apple.com/us/app/habitrig-habit-tracker/id6759192273?itscg=30200&itsct=apps_box_badge&mttnsubad=6759192273" style="display:inline-block"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?releaseDate=1775606400" alt="Download on the App Store" style="height:52px;object-fit:contain"></a>
+        <span class="btn-soon"><svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 010 1.38l-1.953 1.128-2.49-2.49 2.14-2.32zM5.864 2.658L16.8 9.49l-2.303 2.303L5.864 2.658z"/></svg>Soon on Google Play</span>
       </div>
     </div>
-
+    <div class="hero-phones an d1" data-anim="scale">
+      <div class="phone side left"><img src="./images/raw-6.PNG" alt="Reports" loading="lazy"></div>
+      <div class="phone center"><img src="./images/raw-1.PNG" alt="Choose your mode"></div>
+      <div class="phone side right"><img src="./images/raw-5.PNG" alt="Badge collection" loading="lazy"></div>
+    </div>
   </div>
+</section>
+
+<!-- MODES -->
+<section class="sec sec-dark" id="modes"><div class="wrap">
+  <div class="sec-head">
+    <span class="tag an" data-anim="rise">Three Ways to Grow</span>
+    <h2 class="sec-title an d1" data-anim="rise">Your Habits, Your Rules</h2>
+    <p class="sec-desc an d2" data-anim="rise">Go solo and build at your own pace. Challenge a friend to a head-to-head duel. Or assemble a squad and keep each other honest.</p>
+  </div>
+  <div class="modes-grid">
+    <div class="mode-card an d1" data-anim="rise">
+      <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="13" r="7" stroke="var(--w70)" stroke-width="1.8"/><path d="M7 35c0-7.2 5.8-13 13-13s13 5.8 13 13" stroke="var(--w70)" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <h3>Solo</h3><p>Set your own goals, track your stats, and collect badges at your own pace.</p>
+    </div>
+    <div class="mode-card an d2" data-anim="rise">
+      <svg viewBox="0 0 40 40" fill="none"><path d="M12 6l8 14-8 14M28 6l-8 14 8 14" stroke="var(--orange)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="20" r="2.5" fill="var(--orange)" opacity=".5"/></svg>
+      <h3>Duel</h3><p>Challenge a friend head-to-head. Break the streak and lose — the strong-willed wins.</p>
+    </div>
+    <div class="mode-card an d3" data-anim="rise">
+      <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="11" r="4.5" stroke="var(--w70)" stroke-width="1.6"/><circle cx="10" cy="24" r="4" stroke="var(--w70)" stroke-width="1.6"/><circle cx="30" cy="24" r="4" stroke="var(--w70)" stroke-width="1.6"/><path d="M20 15.5v3.5M13.5 21.5L17 19M26.5 21.5L23 19" stroke="var(--w30)" stroke-width="1.3"/></svg>
+      <h3>Squad</h3><p>Form a team. If one breaks the chain, everyone burns. Real accountability.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- FEATURES -->
+<section class="sec" id="features"><div class="wrap">
+
+  <!-- Track Your Way -->
+  <div class="showcase">
+    <div class="an" data-anim="left">
+      <span class="tag">Track Your Way</span>
+      <h2>4 Ways to Prove It</h2>
+      <p>Not every habit works the same — so why track them the same way? Pick the verification method that fits.</p>
+      <ul class="check-list">
+        <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Manual check-off for simple wins</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Built-in timer for deep-work sessions</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Photo proof — snap it, let your crew approve</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Health sync for steps, distance & energy</li>
+      </ul>
+    </div>
+    <div class="showcase-phone an" data-anim="right"><div class="phone"><img src="./images/raw-3.PNG" alt="New Habit" loading="lazy"></div></div>
+  </div>
+
+  <!-- Streaks & Gems -->
+  <div class="showcase flip">
+    <div class="an" data-anim="right">
+      <span class="tag">Streaks & Gems</span>
+      <h2>Every Day Counts</h2>
+      <p>Build momentum with daily streaks. Earn gems as you hit milestones — then spend them to rescue your streak when life gets in the way. Your all-time best streak is your ticket to the global leaderboard, where the top 100 compete worldwide.</p>
+      <ul class="check-list">
+        <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Set daily, weekly, or monthly goals</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Daily streaks across all modes</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Earn gems by completing habits & watching ads</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Rescue your Solo streak with gems — no safety net in Duel & Squad</li>
+      </ul>
+    </div>
+    <div class="showcase-phone an" data-anim="left"><div class="phone"><img src="./images/raw-2.PNG" alt="Active habits with streaks" loading="lazy"></div></div>
+  </div>
+
+  <!-- Stay Connected -->
+  <div class="showcase">
+    <div class="an" data-anim="left">
+      <span class="tag">Challenge Friends</span>
+      <h2>Bring Your Friends In</h2>
+      <p>Challenge a friend to a duel or build a squad and watch who actually shows up. When someone slacks, everyone sees it.</p>
+      <ul class="check-list">
+        <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Challenge any friend — full stat showdown when time's up</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Squad streak dies if one member fails</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Nudge the slackers — they'll get the message</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>In-app chat for strategy and trash talk</li>
+      </ul>
+    </div>
+    <div class="showcase-phone an" data-anim="right"><div class="phone"><img src="./images/raw-4.PNG" alt="Nudge slackers" loading="lazy"></div></div>
+  </div>
+
+</div></section>
+
+<!-- STATS -->
+<section class="stats-strip sec-dark"><div class="wrap">
+  <div class="an" data-anim="rise"><div class="stat-val" data-count="60">0</div><div class="stat-lbl">Badges</div></div>
+  <div class="an d1" data-anim="rise"><div class="stat-val" data-count="3">0</div><div class="stat-lbl">Modes</div></div>
+  <div class="an d2" data-anim="rise"><div class="stat-val" data-count="6">0</div><div class="stat-lbl">Languages</div></div>
+</div></section>
+
+<!-- BADGES -->
+<section class="sec" id="badges"><div class="wrap">
+  <div class="sec-head">
+    <span class="tag an" data-anim="rise">60+ Badges Across 6 Levels</span>
+    <h2 class="sec-title an d1" data-anim="rise">From Kinetic to Monolith</h2>
+    <p class="sec-desc an d2" data-anim="rise">Unlock achievements in streak, output, deep work, social, lifestyle, and hidden categories. Share your badges with beautifully designed cards — and earn gems while you're at it.</p>
+  </div>
+  <div class="badge-showcase an d3" data-anim="scale">
+    <div class="level-path">
+      <div class="level-chip"><span class="lc-dot" style="background:#94a3b8"></span>Kinetic</div>
+      <div class="level-arrow">→</div>
+      <div class="level-chip"><span class="lc-dot" style="background:#3b82f6"></span>Momentum</div>
+      <div class="level-arrow">→</div>
+      <div class="level-chip"><span class="lc-dot" style="background:#a855f7"></span>Flow</div>
+      <div class="level-arrow">→</div>
+      <div class="level-chip"><span class="lc-dot" style="background:#ef4444"></span>Peak</div>
+      <div class="level-arrow">→</div>
+      <div class="level-chip"><span class="lc-dot" style="background:#0f172a;border:1.5px solid var(--w30)"></span>Monolith</div>
+      <div class="level-arrow">→</div>
+      <div class="level-chip"><span class="lc-dot" style="background:#7c3aed"></span>???</div>
+    </div>
+    <div class="badge-phone-center"><div class="phone"><img src="./images/raw-5.PNG" alt="Badge collection" loading="lazy"></div></div>
+  </div>
+</div></section>
+
+<!-- REPORTS -->
+<section class="sec sec-dark" id="reports"><div class="wrap">
+  <div class="sec-head">
+    <span class="tag an" data-anim="rise">Detailed Progress Reports</span>
+    <h2 class="sec-title an d1" data-anim="rise">See Your Growth</h2>
+    <p class="sec-desc an d2" data-anim="rise">Monthly and yearly charts. Activity heatmaps reveal your consistency at a glance — every day color-coded, every gap visible.</p>
+  </div>
+  <div class="report-pair an d3" data-anim="scale">
+    <div class="phone"><img src="./images/raw-6.PNG" alt="Stats" loading="lazy"></div>
+    <div class="phone"><img src="./images/raw-7.PNG" alt="Heatmap" loading="lazy"></div>
+  </div>
+</div></section>
+
+<!-- SMART FEATURES STRIP -->
+<section class="smart-strip">
+  <div class="wrap">
+    <div class="smart-item an" data-anim="rise"><svg viewBox="0 0 18 18" fill="none"><path d="M9 2v2M9 14v2M2 9h2M14 9h2M4.2 4.2l1.4 1.4M12.4 12.4l1.4 1.4M4.2 13.8l1.4-1.4M12.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="9" r="3" stroke="currentColor" stroke-width="1.5"/></svg>Smart Reminders</div>
+    <div class="smart-item an d1" data-anim="rise"><svg viewBox="0 0 18 18" fill="none"><path d="M3 9a6 6 0 1112 0A6 6 0 013 9z" stroke="currentColor" stroke-width="1.5"/><path d="M9 6v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Offline Support</div>
+    <div class="smart-item an d2" data-anim="rise"><svg viewBox="0 0 18 18" fill="none"><path d="M3 12c0-2.5 2-4 4-4s3 1 3 3-2 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M15 6c0 2.5-2 4-4 4s-3-1-3-3 2-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Sound & Haptics</div>
+    <div class="smart-item an d3" data-anim="rise"><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="M1 9h16M9 2.5c2 2 3 4.2 3 6.5s-1 4.5-3 6.5M9 2.5c-2 2-3 4.2-3 6.5s1 4.5 3 6.5" stroke="currentColor" stroke-width="1.2"/></svg>6 Languages</div>
+  </div>
+</section>
+
+<!-- PREMIUM -->
+<section class="sec"><div class="wrap">
+  <div class="sec-head">
+    <span class="tag an" data-anim="rise">Free & Premium</span>
+    <h2 class="sec-title an d1" data-anim="rise">Start Free, Go Further</h2>
+  </div>
+  <div class="plan-grid an d2" data-anim="rise">
+    <div class="plan-card free-card">
+      <div class="plan-label">Free</div>
+      <div style="height:35px"></div>
+      <div class="plan-divider"></div>
+      <div class="plan-features">
+        <div class="plan-feat free-feat"><span class="dot-free"></span>3 active habits</div>
+        <div class="plan-feat free-feat"><span class="dot-free"></span>Basic Statistics</div>
+        <div class="plan-feat free-feat"><span class="dot-free"></span>30-day archive</div>
+        <div class="plan-feat free-feat"><span class="dot-free"></span>Forced ads</div>
+      </div>
+    </div>
+    <div class="plan-card pro-card">
+      <div class="plan-badge">Go Premium</div>
+      <div class="plan-label">Premium</div>
+      <div class="plan-pricing">1.99€/mo · 14.99€/yr</div>
+      <div class="plan-divider"></div>
+      <div class="plan-features">
+        <div class="plan-feat"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited habits</div>
+        <div class="plan-feat"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Monthly & Yearly Reports</div>
+        <div class="plan-feat"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Detailed Statistics & Heatmaps</div>
+        <div class="plan-feat"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Detailed Archive View</div>
+        <div class="plan-feat"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>No Forced Ads</div>
+      </div>
+    </div>
+  </div>
+  <div class="lang-note an d3" data-anim="rise" style="text-align:center;margin-top:24px">Available in English, Spanish, German, French, Dutch, and Turkish.</div>
+</div></section>
+
+<!-- CTA -->
+<section class="cta-sec" id="dl"><div class="wrap">
+  <h2 class="an" data-anim="rise">Ready to <span>Level Up</span>?</h2>
+  <p class="cta-desc an d1" data-anim="rise">Free with 3 active habits. Go Premium anytime.</p>
+  <p class="an d1" data-anim="rise" style="font-size:12px;color:var(--w50);margin-bottom:28px">Your data stays yours — freeze or delete your account anytime.</p>
+  <div class="btn-row an d2" data-anim="rise" style="justify-content:center">
+    <a href="https://apps.apple.com/us/app/habitrig-habit-tracker/id6759192273?itscg=30200&itsct=apps_box_badge&mttnsubad=6759192273" style="display:inline-block"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?releaseDate=1775606400" alt="Download on the App Store" style="height:52px;object-fit:contain"></a>
+    <span class="btn-soon"><svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 010 1.38l-1.953 1.128-2.49-2.49 2.14-2.32zM5.864 2.658L16.8 9.49l-2.303 2.303L5.864 2.658z"/></svg>Soon on Google Play</span>
+  </div>
+</div></section>
+
+<!-- FOOTER -->
+<footer><div class="wrap" style="flex-direction:column;align-items:center;text-align:center">
+  <div class="ft-links"><a href="https://www.habitrig.app/privacy.html">Privacy Policy</a><a href="https://www.habitrig.app/terms.html">Terms of Service</a><a href="https://www.habitrig.app/support.html">Support</a></div>
+  <div class="ft-copy" style="margin-top:8px">© 2026 HabitRig</div>
+</div></footer>
+
+</div>
+
+<script>
+const nb=document.getElementById('nb'),nbar=nb.querySelector('.nav-bar');
+const stops=[[63,24,182,0],[123,47,212,.4],[199,93,209,1]];
+function lerp(t){let i=0;for(let s=1;s<stops.length;s++){if(t<=stops[s][3]){i=s-1;break}}if(t>stops[stops.length-1][3])i=stops.length-2;const a=stops[i],b=stops[i+1],f=Math.max(0,Math.min(1,(t-a[3])/(b[3]-a[3])));return[Math.round(a[0]+(b[0]-a[0])*f),Math.round(a[1]+(b[1]-a[1])*f),Math.round(a[2]+(b[2]-a[2])*f)]}
+function onScroll(){const y=window.scrollY,h=document.documentElement.scrollHeight-innerHeight,pct=Math.min(y/Math.max(h,1),1),s=y>50;nb.classList.toggle('scrolled',s);nbar.style.background=s?`rgba(${lerp(pct).join(',')},0.55)`:'transparent'}
+window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis-'+(e.target.dataset.anim||'rise'));io.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.an').forEach(el=>io.observe(el));
+const counterObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const el=e.target,target=parseInt(el.dataset.count),suffix=target===60?'+':'',duration=1200;let start=null;function step(ts){if(!start)start=ts;const p=Math.min((ts-start)/duration,1),val=Math.round(p*target);el.textContent=val+suffix;if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step);counterObs.unobserve(el)}})},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>counterObs.observe(el));
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();closeMenu();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})}));
+function toggleMenu(){document.getElementById('ham').classList.toggle('open');document.getElementById('mmenu').classList.toggle('open');document.body.style.overflow=document.getElementById('mmenu').classList.contains('open')?'hidden':''}
+function closeMenu(){document.getElementById('ham').classList.remove('open');document.getElementById('mmenu').classList.remove('open');document.body.style.overflow=''}
+</script>
 </body>
 </html>
