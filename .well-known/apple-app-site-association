@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "XCV7Y8QA5W.com.habitrig.app",
+        "paths": ["/invite/*"]
+      }
+    ]
+  }
+}
