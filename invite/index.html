@@ -10,58 +10,62 @@
 <link rel="apple-touch-icon" href="/images/icon.png">
 <meta name="apple-itunes-app" content="app-id=6759192273">
 <meta property="og:title" content="HabitRig — You're invited!">
-<meta property="og:description" content="Join HabitRig and earn 200 gems on signup.">
+<meta property="og:description" content="Join HabitRig and level up.">
 <meta property="og:image" content="https://www.habitrig.app/images/icon.png">
 <meta property="og:url" content="https://www.habitrig.app/invite">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{--p1:#3f18b6;--p2:#7B2FD4;--p3:#C75DD1;--orange:#FF9F1C;--w:#fff;--w90:rgba(255,255,255,.9);--w70:rgba(255,255,255,.7);--w50:rgba(255,255,255,.5);--w30:rgba(255,255,255,.3);--w15:rgba(255,255,255,.15);--w10:rgba(255,255,255,.1);--w06:rgba(255,255,255,.06)}
-html{scroll-behavior:smooth;overflow-x:hidden}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:linear-gradient(to bottom,var(--p1) 0%,var(--p2) 40%,var(--p3) 100%);color:var(--w);min-height:100vh;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:32px 24px;position:relative;overflow-x:hidden}
+html{overflow-x:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:linear-gradient(to bottom,var(--p1) 0%,var(--p2) 40%,var(--p3) 100%);color:var(--w);min-height:100vh;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;padding:24px;position:relative;overflow-x:hidden}
 
 /* Hero glow — exact match to website .hero-glow */
 .hero-glow{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;width:450px;height:450px;background:rgba(255,159,28,.08);top:-120px;right:5%;z-index:0}
 
-@keyframes rise{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
-.container{max-width:480px;width:100%;position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;flex:1;justify-content:center;animation:rise .8s cubic-bezier(.22,1,.36,1) both}
+/* Container — flex:1 ile container ortada, footer margin-top:auto ile altta. Single viewport guarantee. */
+.container{flex:1;width:100%;max-width:520px;margin:0 auto;position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:rise .8s cubic-bezier(.22,1,.36,1) both}
 
-/* Brand mark — exact match to website .nav-brand */
+/* Brand mark — site .nav-brand birebir aynı (28px logo + 18px text, italic 900) */
 .brand{display:inline-flex;align-items:center;gap:9px;margin-bottom:36px;text-decoration:none;color:var(--w);transition:transform .2s ease}
 .brand:hover{transform:translateY(-1px)}
 .brand img{width:28px;height:28px;border-radius:6px;display:block}
 .brand .name{font-size:18px;font-weight:900;font-style:italic;letter-spacing:-.4px}
-.brand .name .rig{color:var(--orange)}
 
-/* Gift icon */
-.gift{font-size:74px;margin-bottom:20px;display:block;animation:float 7s ease-in-out infinite;filter:drop-shadow(0 8px 24px rgba(0,0,0,.25))}
+/* .rig orange — both brand mark + h1 inline brand share this rule */
+.rig{color:var(--orange)}
+
+/* Gift icon — 56px (önceki 74'ten kompakt) */
+.gift{font-size:56px;margin-bottom:18px;display:block;animation:float 7s ease-in-out infinite;filter:drop-shadow(0 8px 24px rgba(0,0,0,.25))}
 
 /* Tag — exact match to website .tag */
-.tag{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3.5px;color:var(--orange);margin-bottom:12px;display:block}
+.tag{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3.5px;color:var(--orange);margin-bottom:14px;display:block}
 
-/* Heading — exact match to website .hero h1 sizing */
-h1{font-size:clamp(34px,4.6vw,52px);font-weight:900;line-height:1.08;letter-spacing:-2px;margin-bottom:18px}
+/* Heading — site .hero h1 sizing, landing-adapted (max 46px instead of 56 for compact fit) */
+h1{font-size:clamp(28px,4.4vw,46px);font-weight:900;line-height:1.08;letter-spacing:-1.5px;margin-bottom:20px}
+h1 .brand-inline{font-style:italic}
 h1 em{font-style:italic;color:var(--orange)}
 
 /* Reward chip — glass card (matches website .mode-card translucent style) */
-.reward{display:inline-flex;align-items:center;gap:8px;background:var(--w10);border:1px solid var(--w15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:11px 22px;border-radius:999px;margin-bottom:24px;font-size:14px;font-weight:700;letter-spacing:.2px;color:var(--w90)}
+.reward{display:inline-flex;align-items:center;gap:8px;background:var(--w10);border:1px solid var(--w15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:10px 20px;border-radius:999px;margin-bottom:22px;font-size:14px;font-weight:700;letter-spacing:.2px;color:var(--w90)}
 .reward .gem{color:var(--orange);font-weight:900;font-size:15px}
 
 /* Description — matches website .hero-desc */
-.desc{font-size:clamp(14px,1.4vw,16px);color:var(--w70);line-height:1.7;margin:0 auto 32px;max-width:420px}
+.desc{font-size:clamp(14px,1.4vw,16px);color:var(--w70);line-height:1.65;margin:0 auto 28px;max-width:440px}
 
 /* Primary CTA — exact match to website .btn-store */
-.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--w);color:var(--p1);padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:700;font-size:14px;transition:all .25s;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:36px;border:none;cursor:pointer;font-family:inherit}
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--w);color:var(--p1);padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:700;font-size:14px;transition:all .25s;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:32px;border:none;cursor:pointer;font-family:inherit}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
 .btn-primary:active{transform:translateY(0) scale(.98)}
 .btn-primary svg{width:18px;height:18px;flex-shrink:0}
 
 /* Divider */
-.divider{display:flex;align-items:center;gap:12px;margin:0 auto 20px;color:var(--w50);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;max-width:280px}
+.divider{display:flex;align-items:center;gap:12px;margin:0 auto 14px;color:var(--w50);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;max-width:280px}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--w15),transparent)}
 
-/* Official store badges — exact match to website hero btn-row sizing */
+/* Official store badges — exact match to website hero btn-row sizing (52px Apple, 77px Google with object-fit:contain) */
 .stores{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
 .stores a{display:inline-block;transition:transform .25s cubic-bezier(.22,1,.36,1);text-decoration:none}
 .stores a:hover{transform:translateY(-2px)}
@@ -69,18 +73,23 @@ h1 em{font-style:italic;color:var(--orange)}
 .stores .apple img{height:52px;width:auto;object-fit:contain;display:block}
 .stores .google img{height:77px;width:auto;object-fit:contain;display:block}
 
-/* Footer — exact match to website footer structure */
-footer{width:100%;max-width:1080px;border-top:1px solid var(--w10);padding:24px 28px 0;margin-top:32px;position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px}
+/* Footer — exact match to website footer structure. margin-top:auto pushes to viewport bottom inside flex column body. */
+footer{width:100%;max-width:1080px;margin:16px auto 0;padding:16px 0 0;border-top:1px solid var(--w10);position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px}
 .ft-links{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
 .ft-links a{color:var(--w50);text-decoration:none;font-size:12px;font-weight:500;transition:color .2s}
 .ft-links a:hover{color:var(--w)}
 .ft-copy{font-size:11px;color:var(--w30)}
 
 @media (max-width:768px){
-  body{padding:24px 20px}
-  .gift{font-size:62px}
-  .brand{margin-bottom:28px}
-  footer{padding:20px 0 0;margin-top:24px}
+  body{padding:20px 18px}
+  .gift{font-size:48px;margin-bottom:12px}
+  .brand{margin-bottom:20px}
+  .brand img{width:36px;height:36px}
+  .brand .name{font-size:20px}
+  .reward{padding:9px 18px;margin-bottom:16px;font-size:13px}
+  .desc{margin-bottom:20px}
+  .btn-primary{margin-bottom:20px}
+  footer{margin-top:14px;padding-top:14px}
 }
 </style>
 </head>
@@ -97,14 +106,14 @@ footer{width:100%;max-width:1080px;border-top:1px solid var(--w10);padding:24px 
 
   <span class="gift">🎁</span>
   <span class="tag">You're Invited</span>
-  <h1>Join <em>HabitRig</em> and start earning</h1>
+  <h1>Join <span class="brand-inline">Habit<span class="rig">Rig</span></span> today</h1>
 
   <div class="reward">
     <span>🎁</span>
     <span><span class="gem">+200 gems</span> on signup</span>
   </div>
 
-  <p class="desc">Build habits with friends. Track streaks together. Win rewards for staying consistent.</p>
+  <p class="desc">Your habits deserve more than a checkbox. Track solo or build habits with friends, team up for duels & squads.</p>
 
   <a id="open-app" class="btn-primary" href="#">
     Open in HabitRig
