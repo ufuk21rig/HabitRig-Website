@@ -25,47 +25,47 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 @keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
-/* Container — flex:1 ile container ortada, footer margin-top:auto ile altta. Single viewport guarantee. */
 .container{flex:1;width:100%;max-width:520px;margin:0 auto;position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:rise .8s cubic-bezier(.22,1,.36,1) both}
 
-/* Brand mark — site .nav-brand birebir aynı (28px logo + 18px text, italic 900) */
+/* Brand mark — site .nav-brand birebir aynı */
 .brand{display:inline-flex;align-items:center;gap:9px;margin-bottom:36px;text-decoration:none;color:var(--w);transition:transform .2s ease}
 .brand:hover{transform:translateY(-1px)}
 .brand img{width:28px;height:28px;border-radius:6px;display:block}
 .brand .name{font-size:18px;font-weight:900;font-style:italic;letter-spacing:-.4px}
-
-/* .rig orange — both brand mark + h1 inline brand share this rule */
 .rig{color:var(--orange)}
 
-/* Gift icon — 56px (önceki 74'ten kompakt) */
 .gift{font-size:56px;margin-bottom:18px;display:block;animation:float 7s ease-in-out infinite;filter:drop-shadow(0 8px 24px rgba(0,0,0,.25))}
 
-/* Tag — exact match to website .tag */
 .tag{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3.5px;color:var(--orange);margin-bottom:14px;display:block}
 
-/* Heading — site .hero h1 sizing, landing-adapted (max 46px instead of 56 for compact fit) */
 h1{font-size:clamp(28px,4.4vw,46px);font-weight:900;line-height:1.08;letter-spacing:-1.5px;margin-bottom:20px}
 h1 .brand-inline{font-style:italic}
 h1 em{font-style:italic;color:var(--orange)}
 
-/* Reward chip — glass card (matches website .mode-card translucent style) */
-.reward{display:inline-flex;align-items:center;gap:8px;background:var(--w10);border:1px solid var(--w15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:10px 20px;border-radius:999px;margin-bottom:22px;font-size:14px;font-weight:700;letter-spacing:.2px;color:var(--w90)}
+.reward{display:inline-flex;align-items:center;gap:8px;background:var(--w10);border:1px solid var(--w15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:10px 20px;border-radius:999px;margin-bottom:14px;font-size:14px;font-weight:700;letter-spacing:.2px;color:var(--w90)}
 .reward .gem{color:var(--orange);font-weight:900;font-size:15px}
 
-/* Description — matches website .hero-desc */
+/* Invite code chip — pairs with .reward visually, smaller */
+.invite-code{display:none;align-items:center;gap:10px;background:var(--w06);border:1px solid var(--w15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:5px 6px 5px 14px;border-radius:999px;margin-bottom:22px}
+.invite-code.show{display:inline-flex}
+.code-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--w50)}
+.code-value{font-family:'Menlo','SF Mono','Courier New',monospace;font-size:14px;font-weight:900;color:var(--w);letter-spacing:2px}
+.copy-btn{display:inline-flex;align-items:center;gap:5px;background:var(--orange);color:var(--w);border:none;padding:6px 14px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.5px;cursor:pointer;transition:all .2s;font-family:inherit;text-transform:uppercase}
+.copy-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(255,159,28,0.35)}
+.copy-btn:active{transform:scale(.95)}
+.copy-btn.copied{background:#4CBB17}
+.copy-btn svg{width:11px;height:11px;flex-shrink:0}
+
 .desc{font-size:clamp(14px,1.4vw,16px);color:var(--w70);line-height:1.65;margin:0 auto 28px;max-width:440px}
 
-/* Primary CTA — exact match to website .btn-store */
 .btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--w);color:var(--p1);padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:700;font-size:14px;transition:all .25s;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:32px;border:none;cursor:pointer;font-family:inherit}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
 .btn-primary:active{transform:translateY(0) scale(.98)}
 .btn-primary svg{width:18px;height:18px;flex-shrink:0}
 
-/* Divider */
 .divider{display:flex;align-items:center;gap:12px;margin:0 auto 14px;color:var(--w50);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;max-width:280px}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--w15),transparent)}
 
-/* Official store badges — exact match to website hero btn-row sizing (52px Apple, 77px Google with object-fit:contain) */
 .stores{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
 .stores a{display:inline-block;transition:transform .25s cubic-bezier(.22,1,.36,1);text-decoration:none}
 .stores a:hover{transform:translateY(-2px)}
@@ -73,7 +73,6 @@ h1 em{font-style:italic;color:var(--orange)}
 .stores .apple img{height:52px;width:auto;object-fit:contain;display:block}
 .stores .google img{height:77px;width:auto;object-fit:contain;display:block}
 
-/* Footer — exact match to website footer structure. margin-top:auto pushes to viewport bottom inside flex column body. */
 footer{width:100%;max-width:1080px;margin:16px auto 0;padding:16px 0 0;border-top:1px solid var(--w10);position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px}
 .ft-links{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
 .ft-links a{color:var(--w50);text-decoration:none;font-size:12px;font-weight:500;transition:color .2s}
@@ -82,13 +81,14 @@ footer{width:100%;max-width:1080px;margin:16px auto 0;padding:16px 0 0;border-to
 
 @media (max-width:768px){
   body{padding:20px 18px}
-  .gift{font-size:48px;margin-bottom:12px}
-  .brand{margin-bottom:20px}
-  .brand img{width:36px;height:36px}
-  .brand .name{font-size:20px}
-  .reward{padding:9px 18px;margin-bottom:16px;font-size:13px}
-  .desc{margin-bottom:20px}
-  .btn-primary{margin-bottom:20px}
+  .gift{font-size:48px;margin-bottom:14px}
+  .brand{margin-bottom:28px}
+  .reward{padding:9px 18px;margin-bottom:12px;font-size:13px}
+  .invite-code{padding:5px 6px 5px 12px;gap:8px}
+  .code-value{font-size:13px;letter-spacing:1.5px}
+  .copy-btn{padding:5px 11px;font-size:10px}
+  .desc{margin-bottom:24px}
+  .btn-primary{margin-bottom:24px}
   footer{margin-top:14px;padding-top:14px}
 }
 </style>
@@ -111,6 +111,15 @@ footer{width:100%;max-width:1080px;margin:16px auto 0;padding:16px 0 0;border-to
   <div class="reward">
     <span>🎁</span>
     <span><span class="gem">+200 gems</span> on signup</span>
+  </div>
+
+  <div class="invite-code" id="invite-code-row">
+    <span class="code-label">Code</span>
+    <code class="code-value" id="invite-code-value"></code>
+    <button class="copy-btn" id="copy-btn" type="button">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="9" height="9" rx="1.5"/><path d="M11 4V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h1"/></svg>
+      <span id="copy-btn-text">Copy</span>
+    </button>
   </div>
 
   <p class="desc">Your habits deserve more than a checkbox. Track solo or build habits with friends, team up for duels & squads.</p>
@@ -144,21 +153,52 @@ footer{width:100%;max-width:1080px;margin:16px auto 0;padding:16px 0 0;border-to
 
 <script>
 (function(){
+  // Strict code validation — A-Z 0-9, 6-12 chars (matches CF generateInviteCode + app Linking regex)
   var pathParts = window.location.pathname.split('/').filter(Boolean);
-  var code = pathParts[pathParts.length - 1] || '';
-  var deepLink = 'habitrig://invite/' + code;
+  var lastPart = pathParts[pathParts.length - 1] || '';
+  var code = /^[A-Z0-9]{6,12}$/i.test(lastPart) ? lastPart.toUpperCase() : '';
+
+  // Show invite code chip if valid code present
+  var codeRow = document.getElementById('invite-code-row');
+  var codeValueEl = document.getElementById('invite-code-value');
+  if (code && codeRow && codeValueEl) {
+    codeValueEl.textContent = code;
+    codeRow.classList.add('show');
+  }
+
+  // Copy button — clipboard API with prompt fallback
+  var copyBtn = document.getElementById('copy-btn');
+  var copyBtnText = document.getElementById('copy-btn-text');
+  if (copyBtn && code) {
+    copyBtn.addEventListener('click', function() {
+      var setCopied = function() {
+        copyBtn.classList.add('copied');
+        copyBtnText.textContent = 'Copied!';
+        setTimeout(function() {
+          copyBtn.classList.remove('copied');
+          copyBtnText.textContent = 'Copy';
+        }, 2000);
+      };
+      var fallback = function() { window.prompt('Copy this code:', code); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(setCopied).catch(fallback);
+      } else {
+        fallback();
+      }
+    });
+  }
+
+  // Deep link wiring (app yüklü kullanıcılar için kısayol — app yoksa silent fail)
+  var deepLink = code ? 'habitrig://invite/' + code : '';
   var openBtn = document.getElementById('open-app');
-  openBtn.href = deepLink;
+  if (openBtn) openBtn.href = deepLink || '#';
 
   // Auto-attempt deep link on mobile (silent fail if app not installed → user uses store buttons)
   var ua = navigator.userAgent || '';
   var isIOS = /iPad|iPhone|iPod/.test(ua);
   var isAndroid = /Android/.test(ua);
-
-  if (isIOS || isAndroid) {
-    setTimeout(function(){
-      window.location.href = deepLink;
-    }, 700);
+  if ((isIOS || isAndroid) && deepLink) {
+    setTimeout(function(){ window.location.href = deepLink; }, 700);
   }
 })();
 </script>
