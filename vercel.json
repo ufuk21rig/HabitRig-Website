@@ -15,6 +15,14 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/((?!\\.well-known/).*)",
+      "has": [{ "type": "host", "value": "habitrig.app" }],
+      "destination": "https://www.habitrig.app/$1",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/invite/:code",
