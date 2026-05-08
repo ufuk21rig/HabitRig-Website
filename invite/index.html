@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#3f18b6">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/images/icon.png">
-<meta name="apple-itunes-app" content="app-id=6759192273">
+<meta name="apple-itunes-app" id="ita-meta" content="app-id=6759192273">
 <meta property="og:title" content="HabitRig — You're invited!">
 <meta property="og:description" content="Join HabitRig and level up.">
 <meta property="og:image" content="https://www.habitrig.app/images/icon.png">
@@ -98,16 +98,16 @@ footer{width:100%;max-width:1080px;margin:16px auto 0;padding:16px 0 0;border-to
   </a>
 
   <span class="gift">🎁</span>
-  <span class="tag">You're Invited</span>
-  <h1>Join <span class="brand-inline">Habit<span class="rig">Rig</span></span> today</h1>
+  <span class="tag" id="i18n-tag">You're Invited</span>
+  <h1 id="i18n-h1">Join <span class="brand-inline">Habit<span class="rig">Rig</span></span> today</h1>
 
   <div class="reward">
     <span>🎁</span>
-    <span><span class="gem">+200 gems</span> on signup</span>
+    <span id="i18n-reward"><span class="gem">+200 gems</span> on signup</span>
   </div>
 
   <div class="invite-code" id="invite-code-row">
-    <span class="code-label">Code</span>
+    <span class="code-label" id="i18n-code-label">Code</span>
     <code class="code-value" id="invite-code-value"></code>
     <button class="copy-btn" id="copy-btn" type="button">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="9" height="9" rx="1.5"/><path d="M11 4V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h1"/></svg>
@@ -115,14 +115,14 @@ footer{width:100%;max-width:1080px;margin:16px auto 0;padding:16px 0 0;border-to
     </button>
   </div>
 
-  <p class="desc">Your habits deserve more than a checkbox. Track solo or build habits with friends, team up for duels & squads.</p>
+  <p class="desc" id="i18n-desc">Your habits deserve more than a checkbox. Track solo or build habits with friends, team up for duels & squads.</p>
 
   <div class="stores">
-    <a class="apple" href="https://apps.apple.com/us/app/habitrig-habit-tracker/id6759192273?itscg=30200&itsct=apps_box_badge&mttnsubad=6759192273" target="_blank" rel="noopener">
-      <img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?releaseDate=1775606400" alt="Download on the App Store">
+    <a class="apple" id="apple-store-link" href="https://apps.apple.com/us/app/habitrig-habit-tracker/id6759192273?itscg=30200&itsct=apps_box_badge&mttnsubad=6759192273" target="_blank" rel="noopener">
+      <img id="apple-store-img" src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?releaseDate=1775606400" alt="Download on the App Store">
     </a>
     <a class="google" href="https://play.google.com/store/apps/details?id=com.habitrig.app" target="_blank" rel="noopener">
-      <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play">
+      <img id="google-store-img" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play">
     </a>
   </div>
 
@@ -130,15 +130,81 @@ footer{width:100%;max-width:1080px;margin:16px auto 0;padding:16px 0 0;border-to
 
 <footer>
   <div class="ft-links">
-    <a href="https://www.habitrig.app/privacy.html">Privacy Policy</a>
-    <a href="https://www.habitrig.app/terms.html">Terms of Service</a>
-    <a href="https://www.habitrig.app/support.html">Support</a>
+    <a href="https://www.habitrig.app/privacy.html" id="i18n-privacy">Privacy Policy</a>
+    <a href="https://www.habitrig.app/terms.html" id="i18n-terms">Terms of Service</a>
+    <a href="https://www.habitrig.app/support.html" id="i18n-support">Support</a>
   </div>
   <div class="ft-copy">© 2026 HabitRig</div>
 </footer>
 
 <script>
 (function(){
+  // ME-3 fix (6 May 2026): 6-dilde web landing i18n. Inviter TR/ES/DE/FR/NL kullanıcı arkadaşına
+  // link gönderir → Accept-Language detection → kendi dilinde sayfa görür. Önceden EN-only →
+  // non-EN inviter'lar büyük drop-off. Browser navigator.language ilk 2 char tabanlı match.
+  // LO-2 fix (6 May 2026): App Store + Play Store badges localized URL (Apple marketing toolbox
+  // + Play Store intl path). Kullanıcı kendi dilinde "Download on the App Store" / "Get it on
+  // Google Play" badge görür.
+  var I18N = {
+    en: { tag: "You're Invited", h1: 'Join {brand} today', reward: '<span class="gem">+200 gems</span> on signup',
+          codeLabel: 'Code', copy: 'Copy', copied: 'Copied!',
+          desc: 'Your habits deserve more than a checkbox. Track solo or build habits with friends, team up for duels & squads.',
+          privacy: 'Privacy Policy', terms: 'Terms of Service', support: 'Support',
+          appleLocale: 'en-us', googleLocale: 'en_us', htmlLang: 'en' },
+    tr: { tag: 'Davetlisin', h1: '{brand} ailesine katıl', reward: 'Kayıt olunca <span class="gem">+200 gem</span>',
+          codeLabel: 'Kod', copy: 'Kopyala', copied: 'Kopyalandı!',
+          desc: 'Alışkanlıkların basit bir checkbox\'tan daha fazlasını hak ediyor. Solo takip et veya arkadaşlarınla düello & takım oluştur.',
+          privacy: 'Gizlilik Politikası', terms: 'Kullanım Şartları', support: 'Destek',
+          appleLocale: 'tr-tr', googleLocale: 'tr', htmlLang: 'tr' },
+    es: { tag: 'Estás Invitado', h1: 'Únete a {brand} hoy', reward: '<span class="gem">+200 gemas</span> al registrarte',
+          codeLabel: 'Código', copy: 'Copiar', copied: '¡Copiado!',
+          desc: 'Tus hábitos merecen más que una casilla. Sigue solo o construye hábitos con amigos, forma duelos y escuadras.',
+          privacy: 'Política de Privacidad', terms: 'Términos de Servicio', support: 'Soporte',
+          appleLocale: 'es-es', googleLocale: 'es', htmlLang: 'es' },
+    de: { tag: 'Du bist eingeladen', h1: 'Komm zu {brand}', reward: '<span class="gem">+200 Edelsteine</span> bei der Anmeldung',
+          codeLabel: 'Code', copy: 'Kopieren', copied: 'Kopiert!',
+          desc: 'Deine Gewohnheiten verdienen mehr als ein Häkchen. Verfolge alleine oder baue Gewohnheiten mit Freunden auf, mit Duellen und Teams.',
+          privacy: 'Datenschutz', terms: 'Nutzungsbedingungen', support: 'Hilfe',
+          appleLocale: 'de-de', googleLocale: 'de', htmlLang: 'de' },
+    fr: { tag: 'Tu es invité', h1: 'Rejoins {brand} aujourd\'hui', reward: '<span class="gem">+200 gemmes</span> à l\'inscription',
+          codeLabel: 'Code', copy: 'Copier', copied: 'Copié !',
+          desc: 'Tes habitudes méritent plus qu\'une case à cocher. Suis-les en solo ou crée des habitudes entre amis, en duel ou en équipe.',
+          privacy: 'Politique de Confidentialité', terms: 'Conditions d\'Utilisation', support: 'Support',
+          appleLocale: 'fr-fr', googleLocale: 'fr', htmlLang: 'fr' },
+    nl: { tag: 'Je bent uitgenodigd', h1: 'Word lid van {brand}', reward: '<span class="gem">+200 edelstenen</span> bij aanmelding',
+          codeLabel: 'Code', copy: 'Kopiëren', copied: 'Gekopieerd!',
+          desc: 'Je gewoontes verdienen meer dan een vinkje. Volg ze alleen of bouw gewoontes met vrienden op, met duels en teams.',
+          privacy: 'Privacybeleid', terms: 'Gebruiksvoorwaarden', support: 'Ondersteuning',
+          appleLocale: 'nl-nl', googleLocale: 'nl', htmlLang: 'nl' },
+  };
+
+  // Browser language detect — first 2 chars (en, tr, es, de, fr, nl). Fallback: en.
+  var browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase().slice(0, 2);
+  var L = I18N[browserLang] || I18N.en;
+
+  // DOM update — text content + html where reward has gem span
+  document.documentElement.lang = L.htmlLang;
+  var setText = function(id, text) { var el = document.getElementById(id); if (el) el.textContent = text; };
+  var setHTML = function(id, html) { var el = document.getElementById(id); if (el) el.innerHTML = html; };
+  var brandHTML = 'Habit<span class="rig">Rig</span>';
+  setText('i18n-tag', L.tag);
+  // h1 with embedded brand span (preserves orange "Rig" styling across locales)
+  var h1Parts = L.h1.split('{brand}');
+  setHTML('i18n-h1', (h1Parts[0] || '') + '<span class="brand-inline">' + brandHTML + '</span>' + (h1Parts[1] || ''));
+  setHTML('i18n-reward', L.reward);
+  setText('i18n-code-label', L.codeLabel);
+  setText('copy-btn-text', L.copy);
+  setText('i18n-desc', L.desc);
+  setText('i18n-privacy', L.privacy);
+  setText('i18n-terms', L.terms);
+  setText('i18n-support', L.support);
+
+  // LO-2: App Store + Play Store badge localized URLs
+  var appleImg = document.getElementById('apple-store-img');
+  if (appleImg) appleImg.src = 'https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/' + L.appleLocale + '?releaseDate=1775606400';
+  var googleImg = document.getElementById('google-store-img');
+  if (googleImg) googleImg.src = 'https://play.google.com/intl/' + L.googleLocale + '/badges/static/images/badges/' + L.googleLocale + '_badge_web_generic.png';
+
   // Strict code validation — A-Z 0-9, 6-12 chars (matches CF generateInviteCode + app Linking regex)
   var pathParts = window.location.pathname.split('/').filter(Boolean);
   var lastPart = pathParts[pathParts.length - 1] || '';
@@ -174,15 +240,31 @@ footer{width:100%;max-width:1080px;margin:16px auto 0;padding:16px 0 0;border-to
     });
   }
 
-  // Auto-attempt deep link on mobile (silent fail if app not installed → user uses store buttons)
-  // App yüklü user'lar için 700ms sonra otomatik app açılır. App yoksa hiçbir şey olmaz.
-  var deepLink = code ? 'habitrig://invite/' + code : '';
+  // HI-5 fix (6 May 2026): iOS Smart Banner app-argument dynamic — App Store install sonrası
+  // ilk launch'ta launch URL invite context'i taşır. Önceden meta sadece app-id içeriyordu →
+  // install sonrası app açılırken davet kodu kayboluyordu (kullanıcı orijinal mesaja dönmek
+  // zorunda). Şimdi: app-id + app-argument=<universal-link> → iOS install completion'da
+  // launch URL'i Linking.getInitialURL ile yakalar → handleUrl claim akışı tetiklenir.
   var ua = navigator.userAgent || '';
   var isIOS = /iPad|iPhone|iPod/.test(ua);
   var isAndroid = /Android/.test(ua);
-  if ((isIOS || isAndroid) && deepLink) {
-    setTimeout(function(){ window.location.href = deepLink; }, 700);
+  if (code && isIOS) {
+    var ita = document.getElementById('ita-meta');
+    if (ita) {
+      ita.setAttribute('content', 'app-id=6759192273, app-argument=https://www.habitrig.app/invite/' + code);
+    }
   }
+
+  // ME-1 + LO-6 fix (6 May 2026): Universal Link / App Link auto-trigger only.
+  // Önceden 700ms sonra `window.location.href = 'habitrig://invite/CODE'` (custom scheme).
+  // App yüklü değilse → iOS Safari "Cannot open page" error dialog (UX bozar). Android'de
+  // de bazen white screen flash. Universal Link (https://www.habitrig.app/invite/CODE) zaten
+  // sayfa yüklenirken iOS swcd / Android Intent Verifier tarafından otomatik handle edilir
+  // (app yüklüyse) — manuel custom scheme tetikleme gereksiz ve hata-meyilli.
+  //
+  // Yeni davranış: app yüklü ise Universal Link tap zaten app'i açtı → JS hiç çalışmadı.
+  // App yüklü değilse JS çalışıyor → kullanıcı sayfayı görüyor → store buttons + COPY chip
+  // ile manuel akışa geçiyor. Custom scheme fallback KALDIRILDI (Safari error dialog yok).
 })();
 </script>
 
